@@ -4,7 +4,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 import math
 
-class CalculatorApp(App):
+class CursosTequixquiacApp(App):
     def build(self):
         self.operators = ["/", "*", "+", "-", "**", "%"]
         self.last_was_operator = None
@@ -22,7 +22,7 @@ class CalculatorApp(App):
         main_layout.add_widget(self.solution)
 
         buttons = [
-            ["7", "8", "9", "/"],
+            [""Carpintería", "Sistemas", "Inglés", "/"],
             ["4", "5", "6", "*"],
             ["1", "2", "3", "-"],
             [".", "0", "C", "+"],
@@ -78,4 +78,4 @@ class CalculatorApp(App):
             self.solution.text = solution
         except Exception:
             self.solution.text = "Error"
-CalculatorApp().run()
+CursosTequixquiacApp().run()
