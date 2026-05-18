@@ -2,7 +2,6 @@ from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
-import math
 
 class CursosTequixquiacApp(App):
     def build(self):
@@ -49,21 +48,48 @@ class CursosTequixquiacApp(App):
         return main_layout
 
     def on_button_press(self, instance):
-        current = self.solution.text
+        current = self.solution.text.strip() 
         button_text = instance.text
 
-        if button_text == "C" or button_text == "Borrar":
+        if button_text == "Borrar":
             self.solution.text = ""
+        
+        elif button_text == "Atrás": 
+            if current and not current.startswith("Registrado") and not current.startswith("Seleccione"):
+               
+                cursos = current.split()
+                cursos.pop()
+                self.solution.text = " ".join(cursos)
+            else:
+                self.solution.text = ""
+                
+        elif button_text == "Info":  
+            self.solution.text = "Información del plantel v1.0"
+            
+        elif button_text == "Inscribir": 
+            self.on_solution(instance)
+            
         else:
-            if current == "Error":
+            
+            if current == "Seleccione un curso" or current.startswith("Registrado") or current == "Información del plantel v1.0":
                 current = ""
-            self.solution.text = current + " " + button_text
+            
+            
+            if current:
+                self.solution.text = current + " " + button_text
+            else:
+                self.solution.text = button_text
 
     def on_solution(self, instance):
-        text = self.solution.text
-        if text:
-            self.solution.text = "Registrado en:" + text
+        text = self.solution.text.strip()
+        if text and not text.startswith("Seleccione") and not text.startswith("Información"):
+         
+            if text.startswith("Registrado en:"):
+                self.solution.text = text
+            else:
+                self.solution.text = "Registrado en: " + text
         else:
             self.solution.text = "Seleccione un curso"
 
-CursosTequixquiacApp().run()
+if __name__ == "__main__":
+    CursosTequixquiacApp().run()
