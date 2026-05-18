@@ -21,16 +21,20 @@ class CursosTequixquiacApp(App):
 
         main_layout.add_widget(self.solution)
 
+
         buttons = [
-            [""Carpintería", "Sistemas", "Inglés", "/"],
+            ["Carpintería", "Sistemas", "Inglés", "/"],
             ["4", "5", "6", "*"],
             ["1", "2", "3", "-"],
-            [".", "0", "C", "+"],
-            ["^", "√", "%", "π"],
+            [".", "0", "C", "⌫"], 
+            ["+", "^", "√", "%"],
+            ["π"]                   
         ]
 
         for row in buttons:
-            h_layout = GridLayout(cols=4)
+           
+            cols_count = 4 if len(row) == 4 else len(row)
+            h_layout = GridLayout(cols=cols_count)
 
             for label in row:
                 button = Button(text=label)
@@ -55,7 +59,9 @@ class CursosTequixquiacApp(App):
 
         if button_text == "C":
             self.solution.text = ""
-        elif button_text == "π":
+        elif button_text == "⌫": 
+            self.solution.text = current[:-1]
+        elif button_text == "π":  
             self.solution.text = current + str(math.pi)
         elif button_text == "√":
             try:
@@ -78,4 +84,6 @@ class CursosTequixquiacApp(App):
             self.solution.text = solution
         except Exception:
             self.solution.text = "Error"
-CursosTequixquiacApp().run()
+
+if __name__ == "__main__":
+    CursosTequixquiacApp().run()
